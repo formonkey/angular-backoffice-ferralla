@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { ShapeModel } from './models';
+import { TableModule } from '../tables';
 import { ShapeComponent } from './components';
 import { BOOTSTRAP_ACTIONS } from './constants';
 import { ShapeService, ShapeRemoteService } from './services';
@@ -13,6 +14,8 @@ import { ShapeService, ShapeRemoteService } from './services';
         CommonModule,
         NgReduxModule,
         HttpClientModule,
+
+        TableModule,
     ],
     declarations: [
         ShapeComponent,
