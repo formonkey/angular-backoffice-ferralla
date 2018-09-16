@@ -1,3 +1,6 @@
 <spa-table [model]="model"
-           [headers]="headers">
+           [headers]="headers"
+           [hasActions]="hasActions"
+           (onAccept)="onAccept($event)"
+           (onCancel)="onCancel($event)">
 </spa-table>

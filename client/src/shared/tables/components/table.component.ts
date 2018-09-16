@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'spa-table',
@@ -8,4 +8,8 @@ import { Component, Input } from '@angular/core';
 export class TableComponent {
     @Input() public readonly model;
     @Input() public readonly headers;
+    @Input() public readonly hasActions: boolean;
+
+    @Output('onCancel') public readonly fireCancel: EventEmitter<any> = new EventEmitter<any>();
+    @Output('onAccept') public readonly fireAccept: EventEmitter<any> = new EventEmitter<any>();
 }

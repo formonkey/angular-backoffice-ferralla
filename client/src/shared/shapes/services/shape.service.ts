@@ -15,7 +15,15 @@ export class ShapeService implements OnDestroy {
     ) {
         this.bootstrapActions = this.bootstrapActions[0];
         this.subscription = this.bootstrapActions.ngRedux.select('shapes')
-            .subscribe((shapes) => this.model.data = shapes);
+            .subscribe((shapes) => {
+                this.model.data = shapes;
+
+                if (this.bootstrapActions.kpi) {
+                    const action = this.bootstrapActions.kpi(this.model.kpi);
+
+                    this.bootstrapActions.ngRedux.dispatch(action);
+                }
+            });
     }
 
     public async getShapes() {

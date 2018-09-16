@@ -1,0 +1,23 @@
+<div class="row"
+     *ngIf="model">
+    <h3 class="col-12">KPIs</h3>
+    <div class="col-2"
+         *ngFor="let element of objectKey(model)"
+         [class.col-3]="!objectKey(model[element])?.length">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ element }}</h5>
+                <div class="text-center">
+                    <ng-container *ngIf="objectKey(model[element])?.length; else print">
+                        <p *ngFor="let key of objectKey(model[element])">
+                            <span><strong>{{ key }}</strong>: {{ model[element][key] }}</span>
+                        </p>
+                    </ng-container>
+                    <ng-template #print>
+                        <span class="display-4">{{ model[element] }}</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
