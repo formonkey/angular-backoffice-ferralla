@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Optional, Output } from '@angular/core';
 import { ShapeService } from '../services/shape.service';
-import { HEADERS } from '../constants';
+import { BOOTSTRAP_ACTIONS, HEADERS } from '../constants';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -14,8 +14,10 @@ export class ShapeComponent implements OnInit, OnDestroy {
     public hasActions: boolean;
     public readonly headers: string[] = HEADERS;
 
-    constructor(private readonly service: ShapeService,
-                private route: ActivatedRoute,) {
+    constructor(private route: ActivatedRoute,
+                private readonly service: ShapeService,
+                @Optional() @Inject(BOOTSTRAP_ACTIONS) private readonly bootstrapActions,) {
+        this.bootstrapActions = this.bootstrapActions[ 0 ];
         this.subscription = this.route.data.subscribe((data) => this.hasActions = data.hasActions);
     }
 
@@ -24,11 +26,15 @@ export class ShapeComponent implements OnInit, OnDestroy {
     }
 
     public onAccept(index) {
-        console.log('accept', index);
+        const action = this.bootstrapActions.accept(index);
+
+        this.bootstrapActions.ngRedux.dispatch(action);
     }
 
     public onCancel(index) {
-        console.log('cancel', index);
+        const action = this.bootstrapActions.cancel(index);
+
+        this.bootstrapActions.ngRedux.dispatch(action);
     }
 
     public ngOnDestroy() {
