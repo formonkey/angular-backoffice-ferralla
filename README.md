@@ -154,8 +154,8 @@ A continuación, se presenta una lista de los indicadores a mostrar en el backo
 	- `npm run serve`
 3. Ejecutar los comandos  
    - `cd client`  
-  - `npm i`  
-  - `npm run watch`  
+   - `npm i`  
+   - `npm run watch`  
 4. Abrir http://localhost:9000  en el navegador   
   
 Cuando se instala el proyecto principal, la tarea `preinstall` del *package.json*, hará las instalaciones de los diferentes proyectos que se encuentran en *apps*.  
