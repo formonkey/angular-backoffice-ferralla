@@ -7,8 +7,6 @@ export const INITIAL_STATE: IBootstrapState = {
     shapes: [],
 };
 
-export const ACTIONS = {};
-
 export const ROUTES: Routes = [
     {
         path: 'shape',

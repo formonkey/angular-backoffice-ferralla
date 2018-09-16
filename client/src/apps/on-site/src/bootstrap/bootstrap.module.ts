@@ -21,7 +21,7 @@ import { GlobalService } from '../../../../core/global/services/global.service';
             useHash: true
         }),
 
-        ShapeModule,
+        ShapeModule.forRoot(BootstrapAction),
     ],
     declarations: [
         BootstrapComponent
