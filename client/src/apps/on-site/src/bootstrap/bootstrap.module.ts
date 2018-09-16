@@ -9,6 +9,7 @@ import { BootstrapAction } from './actions';
 import { IBootstrapState } from './interfaces';
 import { BootstrapComponent } from './components';
 import { ShapeModule } from '../../../../shared/shapes/shape.module';
+import { NavHeaderComponent } from '../../../../shared/nav-header/components';
 import { GlobalService } from '../../../../core/global/services/global.service';
 
 
@@ -24,7 +25,8 @@ import { GlobalService } from '../../../../core/global/services/global.service';
         ShapeModule.forRoot(BootstrapAction),
     ],
     declarations: [
-        BootstrapComponent
+        BootstrapComponent,
+        NavHeaderComponent,
     ],
     providers: [
         GlobalService,
