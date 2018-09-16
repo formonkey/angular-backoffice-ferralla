@@ -10,7 +10,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let element of model; let index = index">
+    <tr *ngFor="let element of model; let index = index"
+        class="table-{{ element?.color }}">
         <th *ngFor="let key of headers">
             {{ element[key] }}
         </th>

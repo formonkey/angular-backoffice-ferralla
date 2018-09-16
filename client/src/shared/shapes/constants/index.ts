@@ -6,6 +6,8 @@ export const BOOTSTRAP_ACTIONS = new InjectionToken<object>('BOOTSTRAP_ACTIONS')
 export const ACTIONS = {
     SET: 'SET',
     KPI: 'KPI',
+    ACCEPT: 'ACCEPT',
+    CANCEL: 'CANCEL',
 };
 
 export const HEADERS = [
@@ -17,3 +19,8 @@ export const HEADERS = [
     'radius',
     'leadtime',
 ];
+
+export const COLORS = {
+    CANCEL: 'danger',
+    ACCEPT: 'success',
+};

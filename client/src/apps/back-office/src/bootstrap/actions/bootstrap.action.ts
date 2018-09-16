@@ -18,4 +18,12 @@ export class BootstrapAction extends ShapeAction {
     public kpi(payload) {
         return { payload, type: ACTIONS.KPI };
     }
+
+    public accept(payload) {
+        return { payload, type: ACTIONS.ACCEPT };
+    }
+
+    public cancel(payload) {
+        return { payload, type: ACTIONS.CANCEL };
+    }
 }

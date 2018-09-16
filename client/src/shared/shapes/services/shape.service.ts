@@ -36,6 +36,12 @@ export class ShapeService implements OnDestroy {
         return this.model.data;
     }
 
+    public accept(index) {
+        const action = this.bootstrapActions.accept(index);
+
+        this.bootstrapActions.ngRedux.dispatch(action);
+    }
+
     public ngOnDestroy() {
         this.subscription.unsubscribe();
     }
