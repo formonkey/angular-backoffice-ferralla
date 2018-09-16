@@ -30,16 +30,10 @@ export class ShapeService implements OnDestroy {
         if (!this.model.data.length) {
             const action = this.bootstrapActions.set(await this.remoteService.getShapes());
 
-            this.bootstrapActions.globalService.globalEventDistributor.dispatch(action);
+            this.bootstrapActions.ngRedux.dispatch(action);
         }
 
         return this.model.data;
-    }
-
-    public accept(index) {
-        const action = this.bootstrapActions.accept(index);
-
-        this.bootstrapActions.ngRedux.dispatch(action);
     }
 
     public ngOnDestroy() {

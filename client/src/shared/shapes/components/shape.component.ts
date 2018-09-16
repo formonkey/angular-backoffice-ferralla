@@ -26,7 +26,9 @@ export class ShapeComponent implements OnInit, OnDestroy {
     }
 
     public onAccept(index) {
-        this.service.accept(index);
+        const action = this.bootstrapActions.accept(index);
+
+        this.bootstrapActions.ngRedux.dispatch(action);
     }
 
     public onCancel(index) {
