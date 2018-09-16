@@ -16,7 +16,13 @@
 	* [Tareas *npm*](#tareas-npm)
 	* [Inter comunicación entre aplicaciones](#inter-comunicación-entre-aplicaciones)  
 	* [Contras](#contras)
-	* [Multiple aplicaciones angular](#multiple-aplicaciones-angular)  
+	* [Multiple aplicaciones angular](#multiple-aplicaciones-angular)
+* [Estructura](#estructura)
+* [Tareas desarrolladas](#tareas-desarrolladas)
+	* [Requisitos no funcionales](#requisitos-no-funcionales)
+	* [Requisitos funcionales](#requisitos-funcionales)
+		* [Aplicación On-site](#aplicación-on-site)
+		* [Aplicación Back-office](#aplicación-back-office)
   
 ## Descripción  
   
@@ -189,3 +195,79 @@ El problema que nos encontramos con Angular 2+ es que se contamina el objeto de 
 - No se puede usar bibliotecas de UI de terceros que dependan de eventos del *document* (es decir, un desplegable que desea saber cuando hace clic en el documento para cerrarse).  
   
 En el futuro, podemos tener mejores soluciones, como elementos angular para tratar este problema, hasta entonces nuestra mejor opción es poner una sola instancia de *Zone.js* en la aplicación raíz.
+
+## Estructura
+
+- *client* - Es donde encontraremos el contenedor principal de las aplicaciones frontend.
+- *mocks* - Aquí encontraremos el servidor mockeado con la librería *json-server*, con lo podremos simular peticiones a backend desde cualquiera de nuestras aplicaciones alojadas en el contenedor.
+
+## Tareas desarrolladas
+
+### Requisitos no funcionales
+
+- [x] Ambas aplicaciones deben alojarse en el mismo repositorio.
+
+	Tal y como hemos comentado con anterioridad, las dos aplicaciones se encuentran alojadas en el mismo repositorio, en este caso en un contenedor usando la librería - *single-spa* - y podemos encontrar las dos aplicaciones en la carpeta *apps*.
+
+	A la hora de instalar el contenedor, se ha usado `preinstall` para entrar en cada app e instalar sus dependencias, así cada aplicación tiene sus propios recursos, librerías y su propio sistema de compilación.
+	
+	---
+- [x] Ambas aplicaciones debe reutilizar tanto código como sea posible.
+
+	Nos encontramos con dos aplicaciones que tienen un listado de *shapes*, por lo que se ha planteado una carpeta shared fuera de las aplicaciones que pertenece al contenedor y cada aplicación usa este módulo, con el fín de reutilizar todo el código.
+
+	También se ha planteado una arquitectura *single-spa* con el que podemos compartir los estados de redux, para que esto se pueda comprobar, hemos dejado activado el devTools de Redux.
+
+	![redux-dev-1](./client/assets/redux-dev-1.png)
+
+	En esta imagen vemos el state de redux de la aplicación - *on-site* - antes de revisar el cambio de state, habría que ir a la aplicación - *back-office* -.
+
+	Aquí vamos al selector y pulsamos sobre él:
+
+	![redux-selector](./client/assets/redux-selector.png)
+
+	Y seleccionamos el siguiente *store* y nos encontraremos este state:
+
+	![redux-dev-2](./client/assets/redux-dev-2.png)
+
+	Si ahora fuéramos a mirar el **network** de nuestro navegador, veríamos que solo se ha realizado una petición a ***/api/shapes***, ya que cuando se realizó la primera petición, el evento dispatch se propagó hasta la otra aplicación, lo cual nos permite reutilizar los estados de redux entre aplicaciones.
+
+### Requisitos funcionales
+
+#### Aplicación On-site
+- [x]  El usuario puede ver todas las barras pedidas, cargadas desde una petición a un *json-server* que devuelve todos los datos del - *archivo.json* - proporcionado en la prueba técnica.
+
+	En esta imagen vemos como se ha realizado un módulo shape, que se compartirá con la otra aplicación y este a su vez, usa un módulo table para pintar los datos.
+
+	![on-site-shape](./client/assets/on-site-shape.png)
+
+#### Aplicación Back-office
+- [x] El usuario puede consultar KPIs predefinidos, ver en el apartado de [especificaciones](#especicaciones).
+
+	Este apartado se ha realizado pensando en un futuro, la primera solución que quise plantear era realizar unas pipes para calcular los datos de forma correcta, sin embargo me pareció un error, ya que posiblemente en algún futuro se hubiera querido borrar un pedido, en ese caso se deberá recalcular los datos ***kpi***, por ello la solución que se ha planteado es que cuando se modifique los shapes de alguna forma, al estar suscrito, cuando se vaya a actualizar el modelo, se recalculará todo los datos.
+
+	El resultado final es tal y como lo mostramos aquí abajo.
+
+	![back-office-kpi](./client/assets/back-office-kpi.png)
+
+	Esté modulo se ha desarrollado solo dentro de la aplicación *back-office* y por tanto es llamado en el lugar adecuado, para que el usuario pueda ver los datos nada mas entrar en la aplicación.
+
+---
+- [x] El usuario puede consultar la lista de barras pedidas, al igual que en la aplicación on-site, pudiendo tener dos acciones de aceptar/cancelar un pedido que solo pintará el row de la tabla de un color rojo en caso de cancelarlo y verde en caso de aceptarlo.
+
+	Tal como ocurre en la aplicación **on-site**, en esta podemos ver la lista de pedidos, pero con una pequeña diferencia, y es la posibilidad de *aceptar*/*rechazar* los pedidos, por lo cual se ha optado poner dos botones de acciones en cada row, que cumpla con dicha función.
+
+	![back-office-shape](./client/assets/back-office-shape.png)
+
+---
+- [x] Los cambios no pueden persistir más allá del estado de la aplicación.
+
+	En este apartado hemos aprovechado la arquitectura planteada, donde, por ejemplo, cuando pulsamos en *aceptar*/*cancelar* un pedido, podemos comprobar que se actualiza el *state* de esta aplicación, pero no de la otra aplicación, esto podemos comprobar visualmente con los colores.
+
+	![back-office-shape-colors](./client/assets/back-office-shape-colors.png)
+
+	Y podemos comprobar como en la otra aplicación no se pinta dichos colores, ya que el cambio solo ha afectado en la aplicación *back-office*.
+
+	![on-site-after-colors](./client/assets/on-site-after-colors.png)
+
+	Animamos que se compruebe dichos cambios en el state :) .
