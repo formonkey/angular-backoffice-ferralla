@@ -1,0 +1,16 @@
+<nav class="navbar navbar-light">
+    <span class="navbar-text">
+        Click to change application:
+        <a href="#/back-office"
+           class="badge"
+           [class.badge-secondary]="current === 'back-office'">
+            back-office
+        </a>
+        |
+        <a href="#/on-site"
+           class="badge"
+           [class.badge-secondary]="current === 'on-site'">
+            on-site
+        </a>
+    </span>
+</nav>
