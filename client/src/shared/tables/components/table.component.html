@@ -4,12 +4,25 @@
         <th scope="col" *ngFor="let header of headers">
             {{ header }}
         </th>
+        <th *ngIf="hasActions">
+
+        </th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let element of model">
+    <tr *ngFor="let element of model; let index = index">
         <th *ngFor="let key of headers">
             {{ element[key] }}
+        </th>
+        <th *ngIf="hasActions">
+            <button class="btn btn-sm btn-success"
+                    (click)="fireAccept.emit(index)">
+                V
+            </button>
+            <button class="btn btn-sm btn-danger ml-2"
+                    (click)="fireCancel.emit(index)">
+                X
+            </button>
         </th>
     </tr>
     </tbody>
