@@ -1,0 +1,33 @@
+{
+  "name": "single-spa-container",
+  "version": "0.0.1",
+  "description": "Single spa container",
+  "scripts": {
+    "preinstall": "cd ./src/apps/on-site && npm i && cd ../back-office && npm i && cd ../..",
+    "watch": "concurrently 'cd ./src/apps/on-site && npm run watch:portal' 'cd ./src/apps/back-office && npm run watch:portal' 'webpack-dev-server --port 9000'",
+    "build": "webpack -p --progress"
+  },
+  "author": "@skullpanda",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "webpack": "^4.19.0",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
+  },
+  "dependencies": {
+    "@angular/common": "^6.1.2",
+    "@angular/compiler": "^6.1.2",
+    "@angular/core": "^6.1.2",
+    "concurrently": "^4.0.1",
+    "copy-webpack-plugin": "^4.5.2",
+    "single-spa": "^4.0.1",
+    "systemjs": "^0.21.4",
+    "zone.js": "^0.8.26"
+  }
+}
