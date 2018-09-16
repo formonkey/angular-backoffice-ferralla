@@ -8,6 +8,7 @@ import { ROUTES } from './constants';
 import { BootstrapAction } from './actions';
 import { IBootstrapState } from './interfaces';
 import { BootstrapComponent } from './components';
+import { ShapeModule } from '../../../../shared/shapes/shape.module';
 import { GlobalService } from '../../../../core/global/services/global.service';
 
 @NgModule({
@@ -18,6 +19,8 @@ import { GlobalService } from '../../../../core/global/services/global.service';
         RouterModule.forRoot(ROUTES, {
             useHash: true
         }),
+
+        ShapeModule,
     ],
     declarations: [
         BootstrapComponent
