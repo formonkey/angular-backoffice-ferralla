@@ -180,7 +180,7 @@ Además, se necesita dividir las aplicaciones en dos partes. Una es la propia ap
   
 Cada una de ellas puede procesar estos eventos de la forma que quiera. El único requisito es que todas las aplicaciones acuerden un formato de evento para enviar y recibir.  
   
-![test](https://raw.githubusercontent.com/me-12/single-spa-portal-example/master/docs/inter-app-communication.jpg)  
+![inter-app-communication](./client/assets/inter-app-communication.jpg)  
   
 ### Contras  
   
